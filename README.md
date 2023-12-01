@@ -1,0 +1,1 @@
+# ansible_stig_win2022
