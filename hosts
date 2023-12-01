@@ -1,0 +1,11 @@
+[windows]
+10.255.2555.5
+[windows:vars]
+ansible_user=Administrator
+ansible_password=<YOUR ADMIN PASSWORD HERE>
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+ansible_winrm_transport=ntlm
+ansible_python_interpreter=/usr/bin/python3
+ansible_become_method=runas
+ansible_runas_user=Administrator
