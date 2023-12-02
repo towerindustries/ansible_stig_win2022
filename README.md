@@ -23,7 +23,7 @@ Listener
     Enabled = true
     URLPrefix = wsman
     CertificateThumbprint = B2614A66C1A6F5086D083F371602BB591B299A40
-    ListeningOn = 10.128.5.14, 127.0.0.1, ::1, fe80::af52:d59d:8500:9ded%3
+    ListeningOn = 10.255.255.5, 127.0.0.1, ::1, fe80::af52:d59d:8500:9ded%3
 ```
 ## Download the DOD Stig Ansible Code
 Check under Ansible Content.  You will have to hit the next page button to see windows 2022.
@@ -63,11 +63,11 @@ This runs a test to see if the playbook will run without making any changes.
 The other files did not need to be modified.
 ```
 [windows]
-10.128.5.14
+10.255.255.5
 
 [windows:vars]
 ansible_user=Administrator
-ansible_password=-%!SLc?qr-G5.(JOLGafXn1mCu$KoLvc
+ansible_password=-<YOUR PASSWORD HERE> ## Update your password here
 ansible_connection=winrm
 ansible_winrm_server_cert_validation=ignore
 ansible_winrm_transport=ntlm
