@@ -1,5 +1,11 @@
 # Ansible STIG Windows 2022
 
+## Set Hostname
+Run from Powershell as an administrator.  This will be the hostname you will use for the certificate.
+```
+set hostname myserver.mydomain.com
+```
+
 ## Configure and Enable WMI on the Windows Server
 Create Certificate for WMI in Powershell.  Update the hostname in the commands below by removing the <>.
 ```
