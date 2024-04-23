@@ -1,10 +1,36 @@
 # Ansible STIG Windows 2022
 
-## Set Hostname
-Run from Powershell as an administrator.  This will be the hostname you will use for the certificate.
+## Better way of creating a certificate
+### Stolen from here 
+https://woshub.com/powershell-remoting-over-https/
+https://woshub.com/how-to-create-self-signed-certificate-with-powershell/
+
 ```
-set hostname myserver.mydomain.com
+$hostName = $env:COMPUTERNAME
+$hostIP=(Get-NetAdapter| Get-NetIPAddress).IPv4Address|Out-String
+$srvCert = New-SelfSignedCertificate -DnsName $hostName,$hostIP -CertStoreLocation Cert:\LocalMachine\My
+$srvCert
 ```
+## Create the new listener
+```
+New-Item -Path WSMan:\localhost\Listener\ -Transport HTTPS -Address * -CertificateThumbPrint $srvCert.Thumbprint -Force
+```
+## Create Firewall Rule
+```
+New-NetFirewallRule -Displayname 'WinRM - Powershell remoting HTTPS-In' -Name 'WinRM - Powershell remoting HTTPS-In' -Profile Any -LocalPort 5986 -Protocol TCP
+```
+## Restart the Service
+```
+Restart-Service WinRM
+```
+## Export the Certificate (optional)
+```
+Export-Certificate -Cert $srvCert -FilePath c:\PS\SSL_PS_Remoting.cer
+```
+
+### A way to create a subject alternative certificate for future use if needed
+```
+New-SelfSignedCertificate -TextExtension @("2.5.29.17={text}IPAddress=10.10.10.22&DNS=powerbi&DNS=powerbi.mydomain.com")
 
 ## Configure and Enable WMI on the Windows Server
 Create Certificate for WMI in Powershell.  Update the hostname in the commands below by removing the <>.
