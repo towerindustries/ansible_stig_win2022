@@ -23,6 +23,9 @@ New-NetFirewallRule -Displayname 'WinRM - Powershell remoting HTTPS-In' -Name 'W
 ```
 Restart-Service WinRM
 ```
+### You may need to reboot the server.
+
+
 ## Export the Certificate (optional)
 ```
 Export-Certificate -Cert $srvCert -FilePath c:\PS\SSL_PS_Remoting.cer
@@ -90,6 +93,8 @@ This runs a test to see if the playbook will run without making any changes.
 
 ## Execute the Playbook Command
 ```ansible-playbook -v -b -i hosts site.yml```
+Fore more Verbose output use -vvv
+```ansible-playbook -v -b -i hosts site.yml -vvv```
 
 ## Example ```hosts``` file
 The other files did not need to be modified.
